@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Accueil – Plateforme IoT</title>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <div class="panel">
+        <div class="overline">Projet IoT – Température & Humidité</div>
+
+        <h1>Plateforme de supervision IoT</h1>
+
+        <p class="subtitle">
+            Cette application permet de suivre en temps réel les mesures de température et d’humidité
+            issues du capteur <strong>DHT11</strong> connecté à un module <strong>ESP8266</strong>.
+            Les données sont collectées, historisées et accessibles via une interface web et une API REST.
+        </p>
+
+        <ul class="feature-list">
+            <li>Visualisation en temps réel des mesures environnementales.</li>
+            <li>Affichage des données sous forme de tableaux et de graphiques.</li>
+            <li>Accès aux données JSON pour exploitation externe.</li>
+        </ul>
+
+        <div class="actions">
+            <a href="{% url 'login' %}" class="btn-primary">
+                Connectez-vous
+            </a>
+            <div class="hint">
+                Consultez l’ensemble des données collectées en temps réel.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body style="min-height:100vh; display:flex; align-items:center; justify-content:center;">
+
+  <div class="panel" style="max-width:420px; width:100%;">
+    <div class="overline">Accès sécurisé</div>
+    <h1 style="margin-top:0;">Se connecter</h1>
+
+    {% if error %}
+      <div style="background:rgba(255,0,0,0.12); border:1px solid rgba(255,0,0,0.35);
+                  padding:10px 12px; border-radius:10px; margin:12px 0;">
+        Nom d’utilisateur ou mot de passe incorrect.
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div style="margin-bottom:12px;">
+        <label>Nom d’utilisateur</label><br>
+        <input type="text" name="username" required style="width:100%; padding:10px; border-radius:10px;">
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label>Mot de passe</label><br>
+        <input type="password" name="password" required style="width:100%; padding:10px; border-radius:10px;">
+      </div>
+
+      <button class="btn-primary" type="submit">Connexion</button>
+    </form>
+  </div>
+
+</body>
+</html>

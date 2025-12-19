@@ -1,0 +1,106 @@
+
+ /* Conteneur centré */
+.iot-cards {
+    display: flex;
+    justify-content: center;       /* 🔥 centre horizontalement */
+    flex-wrap: wrap;               /* permet le retour à la ligne */
+    gap: 20px;                     /* espace entre cards */
+    margin-top: 30px;
+}
+
+/* Cards plus petites */
+.iot-card {
+    width: 260px;                  /* 🔥 largeur réduite et fixe */
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px 18px;            /* un peu réduit */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: left;
+}
+
+/* Hover moderne */
+.iot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Titre de la card */
+.iot-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: black;
+    margin-bottom: 12px;
+}
+
+/* Icônes */
+.iot-icon {
+    width: 26px;
+    height: 26px;
+}
+
+/* Valeur affichée */
+.iot-card-body {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+}
+
+/* Valeurs numériques */
+.iot-card-body.value {
+    font-size: 15px;
+    color: black;
+}
+
+/* Texte sous les cards */
+.iot-info {
+    margin-top: 15px;
+    font-size: 14px;
+    color: black;
+    text-align: center;   /* 🔥 CENTRÉ */
+    width: 80%;          /* garantit un centrage correct */
+}
+
+/* Ligne horizontale : texte + bouton */
+.iot-bottom-row {
+    display: flex;
+    justify-content: center;    /* centre tout */
+    align-items: center;
+    gap: 20px;                  /* espace entre texte et bouton */
+    margin-top: 20px;
+    flex-wrap: wrap;            /* responsive */
+}
+
+/* Texte */
+.iot-info {
+    font-size: 14px;
+    color: #374151;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+/* Bouton CSV */
+.btn-csv {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #0b4d9c, #2563eb);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+    transition: 0.2s ease-in-out;
+}
+
+.btn-csv:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+    opacity: 0.95;
+}
+

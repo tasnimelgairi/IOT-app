@@ -1,0 +1,254 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background-color: #f3f6fb;
+            color: #1f2933;
+        }
+
+        /* ===== NAVBAR ===== */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background: linear-gradient(135deg, #0b4d9c, #2563eb);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
+        }
+
+
+        .nav-inner {
+            max-width: 100%;
+            margin: 0 auto;
+            height: 72px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+        }
+        .nav-inner{
+          display:flex;
+          align-items:center;
+          justify-content: space-between;
+          gap: 18px;              /* espace entre brand / links / logout */
+        }
+
+        /* Logo + sous-titre */
+        .nav-brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .nav-subtitle {
+            margin-top: 2px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Liens de navigation */
+        .nav-links{
+            display:flex;
+            list-style:none;
+            gap:70px;          /* ✅ spacing entre les <li> */
+            padding:0;
+            margin:0;
+        }
+
+
+        .nav-links li a {
+            position: relative;
+            font-size: 14px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            padding-bottom: 4px;
+            transition: color 0.2s ease;
+            grap: 70px;
+        }
+
+        .nav-links li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background-color: #ffcf33;
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        /* Bloc du select à droite */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Select compte */
+        .account-select {
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            padding: 6px 16px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            backdrop-filter: blur(6px);
+        }
+
+        .account-select:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .account-select option {
+            color: #000000;
+        }
+
+        /* ===== CONTENU DE LA PAGE ===== */
+
+        .page-content {
+            max-width: 1200px;
+            margin: 24px auto 32px auto;
+            padding: 0 24px;
+        }
+
+        /* Carte d’en-tête */
+        .page-header-card {
+            background: #ffffff;
+            padding: 18px 24px;
+            margin-bottom: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* Carte générique */
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 16px 20px 20px 20px;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 900px) {
+            .nav-inner {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-inner {
+                flex-wrap: wrap;
+                height: auto;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                gap: 8px;
+            }
+
+            .nav-brand {
+                width: 100%;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                row-gap: 4px;
+            }
+
+            .nav-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .page-content {
+                padding: 0 16px;
+            }
+        }
+        .account-select {
+            text-align: center;
+            text-align-last: center;
+        }
+.logout-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e63946, #d90429);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: 0.25s ease;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #d90429, #b8001f);
+    transform: translateY(-2px);
+}
+
+.logout-btn:active {
+    transform: scale(0.96);
+}

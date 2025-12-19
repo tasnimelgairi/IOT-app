@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.container-flex {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 30px;
+    width: 100%;
+}
+
+.chart-card {
+    flex: 1;
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(15,23,42,0.12);
+}
+
+.canvas-wrapper {
+    height: 460px;
+}
+
+.filter-bar{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  margin: 0 0 14px 0;
+}
+
+.filter-bar label{
+  font-size:13px;
+}
+
+.filter-bar input[type="date"]{
+  padding: 8px 10px;
+  border: 1px solid #dbe3f2;
+  border-radius: 10px;
+}
+
+.filter-bar button{
+  padding:10px 18px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  background:#0b4d9c;
+  color:#fff;
+}
+
+#btn-csv{
+  padding:10px 18px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  background:#16a34a; /* vert */
+  color:#fff;
+}
+</style>
+
+<div class="graphique">
+  <div class="container-flex">
+    <section class="chart-card">
+      <h2>Évolution de l'humidité de mois</h2>
+      <div class="filter-bar">
+        <div>
+          <label>Date début</label><br>
+          <input type="date" id="dateStart">
+        </div>
+        <div>
+          <label>Date fin</label><br>
+          <input type="date" id="dateEnd">
+        </div>
+        <button type="button" id="btn-filter">Filtrer</button>
+        <button type="button" id="btn-csv">Télécharger CSV</button>
+      </div>
+      <div class="canvas-wrapper">
+        <canvas id="graphique-hum"></canvas>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const dateStart = document.getElementById('dateStart');
+  const dateEnd   = document.getElementById('dateEnd');
+  const btnFilter = document.getElementById('btn-filter');
+  let lineChart = null;
+
+  function loadAndUpdate(start=null, end=null) {
+    const u = new URL("{% url 'chart_data_mois' %}", window.location.origin);
+    if (start) u.searchParams.set("start", start);
+    if (end)   u.searchParams.set("end", end);
+
+    console.log("URL fetch =>", u.toString());
+
+    fetch(u.toString(), { credentials: 'same-origin' })
+      .then(async r => {
+        const txt = await r.text();
+        console.log("HTTP =", r.status);
+        console.log("RAW RESPONSE =", txt);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return JSON.parse(txt);
+      })
+      .then(data => {
+        console.log("JSON =", data);
+
+        const labels = data.temps || [];
+        const hum    = data.humidity || data.hum || [];   // ✅ important
+
+        if (labels.length === 0 || hum.length === 0) {
+          alert("⚠️ Aucune donnée reçue (temps/humidity vides). Vérifie ta view Django.");
+        }
+        updateChart(labels, hum);
+      })
+      .catch(err => {
+        console.error("Erreur filtre:", err);
+        alert("Erreur: " + err.message);
+      });
+  }
+
+  function updateChart(labels, humValues) {
+    const ctx = document.getElementById('graphique-hum').getContext('2d');
+    if (lineChart) lineChart.destroy();
+
+    lineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Humidité moyenne (%) / jour',
+          data: humValues,
+          backgroundColor: 'rgba(16, 185, 129, 0.05)',
+          borderColor: 'rgb(16, 185, 129)',
+          borderWidth: 2,
+          pointRadius: 3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: { beginAtZero: true, callback: v => v + '%' }
+          }],
+          xAxes: [{
+            ticks: { autoSkip: true, maxTicksLimit: 12 }
+          }]
+        }
+      }
+    });
+  }
+
+  btnFilter.addEventListener('click', () => {
+    const start = dateStart.value || null;
+    const end   = dateEnd.value || null;
+
+    if (start && end && start > end) {
+      alert("⚠️ Date début doit être <= date fin");
+      return;
+    }
+    loadAndUpdate(start, end);
+  });
+
+  loadAndUpdate();
+});
+</script>
+
+<script>
+document.getElementById("btn-csv").addEventListener("click", function () {
+    window.location.href = "{% url 'download_csv' %}";
+});
+</script>
+
+{% endblock content %}

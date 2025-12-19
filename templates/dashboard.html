@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<main class="page-content">
+    <br>
+
+    <section class="card">
+        <div class="card-header">
+            <h1 class="card-title">Dashboard IoT – DHT11</h1>
+        </div>
+        <div class="card-body">
+            <p>
+                Ce tableau de bord permet de consulter les mesures de température et d’humidité
+                collectées par le capteur <strong>DHT11</strong>, ainsi que différents graphiques
+                et représentations JSON.
+            </p>
+        </div>
+    </section>
+
+    <br><br>
+
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title">Contenu de la page</h2>
+        </div>
+        <div class="card-body">
+            <p>
+                Ici, tu peux afficher ta table, ton graphique de température, ton graphique
+                d’humidité ou tout autre contenu lié à ton projet.
+            </p>
+        </div>
+    </section>
+</main>
+
+<div class="iot-cards">
+    <div class="iot-card">
+        <div class="iot-card-header">
+            <img src="{% static 'img/dht11.jpg' %}" class="iot-icon">
+            <span>Capteur</span>
+        </div>
+        <div class="iot-card-body value">DHT 11</div>
+    </div>
+
+    <div class="iot-card">
+        <div class="iot-card-header">
+            <img src="{% static 'img/temp.jpg' %}" class="iot-icon">
+            <span>Température</span>
+        </div>
+        <div class="iot-card-body value">
+                {{ valeurs.temp }} °C
+            </div>
+    </div>
+
+    <div class="iot-card">
+        <div class="iot-card-header">
+            <img src="{% static 'img/humidity.jpg' %}" class="iot-icon">
+            <span>Humidité</span>
+        </div>
+        <div class="iot-card-body value">
+            {{ valeurs.hum }} %
+        </div>
+    </div>
+
+    <div class="iot-card">
+        <div class="iot-card-header">
+            <img src="{% static 'img/time.jpg' %}" class="iot-icon">
+            <span>Date & Heure</span>
+        </div>
+        <div class="iot-card-body">
+                {{ valeurs.date }}
+        </div>
+    </div>
+</div>
+
+<main class="page-content">
+    <section>
+        <div class="card-body">
+            <div class="iot-bottom-row">
+                <p class="iot-info">
+                    <strong>
+                        Ce tableau présente les mesures actuelles de température et d'humidité enregistrées par le capteur DHT11.
+                    </strong>
+                    <br><br>
+                    <button id="btn-csv" class="btn-csv">Télécharger CSV</button>
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+document.getElementById('btn-csv').addEventListener('click', function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/download_csv/', true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var url = window.URL.createObjectURL(xhr.response);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'model_values.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    };
+    xhr.send();
+});
+
+// ✅ 1 minute = 60000
+// ✅ 20 minutes = 1200000
+setInterval(function() {
+    location.reload();
+}, 60000);
+</script>
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<div class="navbar">
+    <nav class="nav-inner">
+        <div class="nav-brand">
+            <h2 class="logo">SURVEILLANCE IOT : CAPTEUR DHT11</h2>
+            <span class="nav-subtitle">
+                Monitoring température &amp; humidité en temps réel
+            </span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'dashboard' %}">Table</a></li>
+            <li><a href="{% url 'myChartTemp' %}">Graph température</a></li>
+            <li><a href="{% url 'myChartHum' %}">Graph humidité</a></li>
+            <li><a href="{% url 'json' %}">JSON</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="logout-btn">Se déconnecter</button>
+            </form>
+        </div>
+    </nav>
+</div>

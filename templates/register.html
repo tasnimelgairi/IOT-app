@@ -1,0 +1,22 @@
+<form method="post">
+  {% csrf_token %}
+
+  {% if error %}
+    <div style="color:red; margin-bottom:10px;">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <label>Nom d’utilisateur</label>
+  <input type="text" name="username" required>
+
+  <label>Mot de passe</label>
+  <input type="password" name="password" required>
+
+  <label>Confirmer mot de passe</label>
+  <input type="password" name="confirm_password" required>
+
+  <button type="submit">S’inscrire</button>
+</form>
+
+<a href="{% url 'login' %}">Se connecter</a>

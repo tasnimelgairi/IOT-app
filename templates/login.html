@@ -9,7 +9,6 @@
 <body style="min-height:100vh; display:flex; align-items:center; justify-content:center;">
 
   <div class="panel" style="max-width:420px; width:100%;">
-    <div class="overline">Accès sécurisé</div>
     <h1 style="margin-top:0;">Se connecter</h1>
 
     {% if error %}
@@ -32,8 +31,30 @@
         <input type="password" name="password" required style="width:100%; padding:10px; border-radius:10px;">
       </div>
 
-      <button class="btn-primary" type="submit">Connexion</button>
+    <button class="btn-primary" type="submit" style="width:100%; padding:12px; border-radius:999px;">
+      Connexion
+    </button>
     </form>
+      <div style="margin-top:14px; text-align:center;">
+  <span style="font-size:13px; color:#64748b;">
+    Vous n’avez pas de compte ?
+  </span><br>
+
+  <a href="{% url 'register' %}"
+     style="
+       display:inline-block;
+       margin-top:6px;
+       padding:10px 22px;
+       border-radius:999px;
+       border:1px solid #2563eb;
+       color:#2563eb;
+       text-decoration:none;
+       font-weight:600;
+     ">
+    S’inscrire
+  </a>
+</div>
+
   </div>
 
 </body>

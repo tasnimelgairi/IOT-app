@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from DHT.api import dht_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("DHT.urls")),
+    path("api", dht_list),
+    path("api/", dht_list),
 ]

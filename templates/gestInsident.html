@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.table-card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(15,23,42,0.12);
+  overflow:hidden;
+}
+
+.table-head{
+  padding:16px 20px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.table-title{
+  font-size: 22px;        /* 🔥 plus grand */
+  font-weight: 800;
+  margin: 0 0 14px 0;
+}
+
+
+.table-wrap{
+  padding: 14px 20px 20px;
+  overflow:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:720px;
+}
+
+th, td{
+  padding:12px 10px;
+  border-bottom:1px solid #eef2f7;
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  font-weight:700;
+  color:#111827;
+  background:#f8fafc;
+}
+
+.badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.badge-ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-bad {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.filter-bar{
+  display: flex;
+  justify-content: center;   /* 🔥 centre horizontalement */
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+</style>
+
+<section class="table-card">
+  <div class="table-head">
+    <h2 class="table-title">Gestion des incidents</h2>
+        <form method="get" class="filter-bar">
+          <div>
+            <label style="font-size:13px;">Date début</label><br>
+            <input type="date" name="start" value="{{ start }}" style="padding:8px 10px;border:1px solid #dbe3f2;border-radius:10px;">
+          </div>
+
+          <div>
+            <label style="font-size:13px;">Date fin</label><br>
+            <input type="date" name="end" value="{{ end }}" style="padding:8px 10px;border:1px solid #dbe3f2;border-radius:10px;">
+          </div>
+
+          <button type="submit" style="padding:10px 18px;border:none;border-radius:999px;cursor:pointer;background:#0b4d9c;color:#fff;">
+            Filtrer
+          </button>
+
+          <a href="{% url 'gestInsident' %}" style="padding:7px 18px;border-radius:999px;text-decoration:none;background:#e5e7eb;color:#111827;">
+            Reset
+          </a>
+        </form>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Temp (°C)</th>
+          <th>Hum (%)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>{{ r.date }}</td>
+          <td>{{ r.heure }}</td>
+          <td>{{ r.temp }}</td>
+          <td>{{ r.hum }}</td>
+          <td>
+            {% if r.anormal %}
+              <span class="badge badge-bad">Anormal</span>
+            {% else %}
+              <span class="badge badge-ok">Normal</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">Aucune donnée trouvée.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock content %}

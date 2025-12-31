@@ -125,3 +125,9 @@
       font-size:12px;
       color:rgba(199,210,254,.75);
     }
+
+    .btn-primary {
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+}
